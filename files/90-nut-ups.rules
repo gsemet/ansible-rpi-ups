@@ -1,0 +1,4 @@
+ACTION=="add", \
+SUBSYSTEM=="usb", \
+ATTR{idVendor}=="051d", ATTR{idProduct}=="0002", \
+MODE="0660", GROUP="nut"

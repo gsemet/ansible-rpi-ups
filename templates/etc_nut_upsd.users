@@ -1,0 +1,3 @@
+[ups]
+        password = ups
+        upsmon master

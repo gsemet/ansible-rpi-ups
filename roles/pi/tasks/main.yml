@@ -1,0 +1,39 @@
+---
+
+- name: "Add NUT group"
+  group:
+    name: nut
+  tags: ups
+
+- name: "Setup UDEV rules"
+  copy:
+    src: "files/90-nut-ups.rules"
+    dest: "/etc/udev/rules.d/90-nut-ups.rules"
+
+- name: "Install nut"
+  apt:
+    name: nut
+    usbutils
+    nut-client nut-server
+
+- name:
+  shell: sudo upsdrvctl start
+
+# TODO
+- name:
+  replace:
+    file: /etc/nut/upsd.conf
+    regex: "# LISTEN 127.0.0.1 3493"
+    replace: "LISTEN x.x.x.x 3493"
+
+- name:
+  template:
+    name: etc_nut_upsd.users
+
+- edit:
+    file: /etc/nut/upsmon.conf
+    add: MONITOR ups@localhost 1 ups ups master
+
+- standalone:
+  edit: /etc/nut/nut.conf
+  add: MODE=standalone

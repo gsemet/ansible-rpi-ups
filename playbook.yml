@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook -i hosts --become -c paramiko --ask-pass
+---
+
+- name: Ansible Playbook for configuring an UPS on Raspberry Pi
+  hosts: webservers
+  roles:
+    - pi
+  remote_user: pi
+  become: yes
